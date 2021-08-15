@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Model\Books;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,8 +14,15 @@ class Author extends Model
         'last_name'
     ];
 
+    protected $hidden = [
+        'pivot',
+        'created_at',
+        'updated_at',
+        'id'
+    ];
+ 
     public function books()
     {
-        return $this->belongsToMany(Books::class);
+        return $this->belongsToMany(Books::class, 'books_author', 'author_id', 'books_id');
     }
 }
